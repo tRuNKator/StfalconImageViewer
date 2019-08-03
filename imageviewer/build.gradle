@@ -16,12 +16,12 @@ android {
 publish {
     groupId = 'com.github.stfalcon'
     artifactId = 'stfalcon-imageviewer'
-    publishVersion = '0.1.0'
+    publishVersion = '0.1.1'
     desc = 'A customizable full-screen image viewer with shared image transition support, "pinch to zoom" and "swipe to dismiss" gestures.'
     licences = ['Apache-2.0']
     uploadName='StfalconImageViewer'
-    website = 'https://github.com/stfalcon-studio/StfalconImageViewer'
-    userOrg = 'troy379'
+    website = 'https://github.com/tRuNKator/StfalconImageViewer'
+    userOrg = 'tRuNKator'
 }
 
 dependencies {
