@@ -1,5 +1,6 @@
 package com.stfalcon.sample.features.demo.rotation
 
+import android.os.Build
 import android.os.Bundle
 import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
@@ -66,7 +67,11 @@ class RotationDemoActivity : AppCompatActivity() {
 
     private fun loadPosterImage(imageView: ImageView, poster: Poster?) {
         imageView.apply {
-            background = getDrawableCompat(R.drawable.shape_placeholder)
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+                background = getDrawableCompat(R.drawable.shape_placeholder)
+            } else {
+                setBackgroundDrawable(getDrawableCompat(R.drawable.shape_placeholder))
+            }
             loadImage(poster?.url)
         }
     }
