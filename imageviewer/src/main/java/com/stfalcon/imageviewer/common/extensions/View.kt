@@ -20,6 +20,7 @@ import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
 import android.animation.ObjectAnimator
 import android.graphics.Rect
+import android.os.Build
 import android.view.View
 import android.view.ViewConfiguration
 import android.view.ViewGroup
@@ -67,9 +68,14 @@ internal fun View.applyMargin(
 ) {
     if (layoutParams is ViewGroup.MarginLayoutParams) {
         layoutParams = (layoutParams as ViewGroup.MarginLayoutParams).apply {
-            marginStart = start ?: marginStart
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+                marginStart = start ?: marginStart
+                marginEnd = end ?: marginEnd
+            } else {
+                leftMargin = start ?: leftMargin
+                rightMargin = end ?: rightMargin
+            }
             topMargin = top ?: topMargin
-            marginEnd = end ?: marginEnd
             bottomMargin = bottom ?: bottomMargin
         }
     }

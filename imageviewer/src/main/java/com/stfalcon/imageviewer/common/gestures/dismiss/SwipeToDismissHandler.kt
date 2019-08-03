@@ -16,12 +16,14 @@
 
 package com.stfalcon.imageviewer.common.gestures.dismiss
 
+import android.animation.Animator
+import android.animation.AnimatorListenerAdapter
+import android.animation.ObjectAnimator
 import android.annotation.SuppressLint
 import android.view.MotionEvent
 import android.view.View
 import android.view.animation.AccelerateInterpolator
 import com.stfalcon.imageviewer.common.extensions.hitRect
-import com.stfalcon.imageviewer.common.extensions.setAnimatorListener
 
 internal class SwipeToDismissHandler(
     private val swipeView: View,
@@ -32,6 +34,7 @@ internal class SwipeToDismissHandler(
 
     companion object {
         private const val ANIMATION_DURATION = 200L
+        private val accelerateInterpolator = AccelerateInterpolator()
     }
 
     private var translationLimit: Int = swipeView.height / 4
@@ -88,19 +91,17 @@ internal class SwipeToDismissHandler(
     }
 
     private fun animateTranslation(translationTo: Float, duration: Long) {
-        swipeView.animate()
-            .translationY(translationTo)
+        val animator = ObjectAnimator.ofFloat(swipeView, View.TRANSLATION_Y, translationTo)
             .setDuration(duration)
-            .setInterpolator(AccelerateInterpolator())
-            .setUpdateListener { onSwipeViewMove(swipeView.translationY, translationLimit) }
-            .setAnimatorListener(onAnimationEnd = {
+        animator.interpolator = accelerateInterpolator
+        animator.addUpdateListener { onSwipeViewMove(swipeView.translationY, translationLimit) }
+        animator.addListener(object : AnimatorListenerAdapter() {
+            override fun onAnimationEnd(animation: Animator?) {
                 if (translationTo != 0f) {
                     onDismiss()
                 }
-
-                //remove the update listener, otherwise it will be saved on the next animation execution:
-                swipeView.animate().setUpdateListener(null)
-            })
-            .start()
+            }
+        })
+        animator.start()
     }
 }
