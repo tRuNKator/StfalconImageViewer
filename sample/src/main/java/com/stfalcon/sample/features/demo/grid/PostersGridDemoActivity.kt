@@ -1,5 +1,6 @@
 package com.stfalcon.sample.features.demo.grid
 
+import android.os.Build
 import android.os.Bundle
 import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
@@ -26,7 +27,7 @@ class PostersGridDemoActivity : AppCompatActivity() {
     }
 
     private fun openViewer(startPosition: Int, target: ImageView) {
-        viewer = StfalconImageViewer.Builder<Poster>(this, Demo.posters, ::loadPosterImage)
+        viewer = StfalconImageViewer.Builder(this, Demo.posters, ::loadPosterImage)
             .withStartPosition(startPosition)
             .withTransitionFrom(target)
             .withImageChangeListener {
@@ -37,7 +38,11 @@ class PostersGridDemoActivity : AppCompatActivity() {
 
     private fun loadPosterImage(imageView: ImageView, poster: Poster?) {
         imageView.apply {
-            background = getDrawableCompat(R.drawable.shape_placeholder)
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+                background = getDrawableCompat(R.drawable.shape_placeholder)
+            } else {
+                setBackgroundDrawable(getDrawableCompat(R.drawable.shape_placeholder))
+            }
             loadImage(poster?.url)
         }
     }
