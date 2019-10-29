@@ -39,15 +39,15 @@ repositories {
   maven { url "https://jitpack.io" }
 }
 
-// Avoid Kotlin docs error
-tasks.withType(Javadoc) {
-  enabled = false
-}
-
 tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).all {
   kotlinOptions {
     jvmTarget = "1.8"
   }
+}
+
+// Avoid Kotlin docs error
+tasks.withType(Javadoc) {
+  enabled = false
 }
 
 // Remove javadoc related tasks

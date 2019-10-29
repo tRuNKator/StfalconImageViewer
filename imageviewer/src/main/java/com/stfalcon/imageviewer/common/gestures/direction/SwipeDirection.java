@@ -2,6 +2,7 @@ package com.stfalcon.imageviewer.common.gestures.direction;
 
 import androidx.annotation.NonNull;
 
+// TODO: 10/29/2019 internal
 public enum SwipeDirection {
   NOT_DETECTED,
   UP,

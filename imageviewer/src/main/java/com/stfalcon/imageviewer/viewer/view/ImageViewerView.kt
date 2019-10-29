@@ -230,12 +230,12 @@ internal class ImageViewerView<T> @JvmOverloads constructor(
 
     private fun animateOpen() {
         transitionImageAnimator.animateOpen(
-            containerPadding = containerPadding,
-            onTransitionStart = { duration ->
+            containerPadding,
+            { duration ->
                 backgroundView.animateAlpha(0f, 1f, duration)
                 overlayView?.animateAlpha(0f, 1f, duration)
             },
-            onTransitionEnd = { prepareViewsForViewer() })
+            { prepareViewsForViewer() })
     }
 
     private fun animateClose() {
@@ -243,12 +243,12 @@ internal class ImageViewerView<T> @JvmOverloads constructor(
         dismissContainer.applyMargin(0, 0, 0, 0)
 
         transitionImageAnimator.animateClose(
-            shouldDismissToBottom = shouldDismissToBottom,
-            onTransitionStart = { duration ->
+            shouldDismissToBottom,
+            { duration ->
                 backgroundView.animateAlpha(backgroundView.alpha, 0f, duration)
                 overlayView?.animateAlpha(overlayView?.alpha, 0f, duration)
             },
-            onTransitionEnd = { onDismiss?.run() })
+            { onDismiss?.run() })
     }
 
     private fun prepareViewsForTransition() {
@@ -355,8 +355,5 @@ internal class ImageViewerView<T> @JvmOverloads constructor(
         onSwipeViewMove = ::handleSwipeViewMove)
 
     private fun createTransitionImageAnimator(transitionImageView: ImageView?) =
-        TransitionImageAnimator(
-            externalImage = transitionImageView,
-            internalImage = this.transitionImageView,
-            internalImageContainer = this.transitionImageContainer)
+        TransitionImageAnimator(transitionImageView, this.transitionImageView, this.transitionImageContainer)
 }

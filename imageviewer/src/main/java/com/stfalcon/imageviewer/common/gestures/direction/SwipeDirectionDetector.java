@@ -6,6 +6,7 @@ import android.view.ViewConfiguration;
 import androidx.annotation.NonNull;
 import androidx.core.util.Consumer;
 
+// TODO: 10/29/2019 internal
 public final class SwipeDirectionDetector {
   private final int touchSlop;
   private float startX;

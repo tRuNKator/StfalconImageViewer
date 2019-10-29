@@ -12,6 +12,7 @@ import com.stfalcon.imageviewer.viewer.builder.BuilderData;
 import com.stfalcon.imageviewer.viewer.view.ImageViewerView;
 import java.util.List;
 
+// TODO: 10/29/2019 internal
 @SuppressWarnings("WeakerAccess")
 public final class ImageViewerDialog<T> {
   final AlertDialog dialog;

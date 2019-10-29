@@ -10,6 +10,7 @@ import com.stfalcon.imageviewer.listeners.OnImageChangeListener;
 import com.stfalcon.imageviewer.loader.ImageLoader;
 import java.util.List;
 
+// TODO: 10/29/2019 internal
 public final class BuilderData<T> {
   public int backgroundColor;
   public int startPosition;
