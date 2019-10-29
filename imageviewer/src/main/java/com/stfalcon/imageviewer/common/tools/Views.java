@@ -47,22 +47,6 @@ public final class Views {
     return view != null && !getGlobalVisibleRect(view).equals(getLocalVisibleRect(view));
   }
 
-  public static boolean isVisible(@Nullable View view) {
-    return view != null && view.getVisibility() == View.VISIBLE;
-  }
-
-  public static void makeVisible(@NonNull View view) {
-    view.setVisibility(View.VISIBLE);
-  }
-
-  public static void makeInvisible(@NonNull View view) {
-    view.setVisibility(View.INVISIBLE);
-  }
-
-  public static void makeGone(@NonNull View view) {
-    view.setVisibility(View.GONE);
-  }
-
   public static void applyMargin(@NonNull View view, @Nullable Integer start, @Nullable Integer top,
       @Nullable Integer end, @Nullable Integer bottom) {
     if (view.getLayoutParams() instanceof MarginLayoutParams) {

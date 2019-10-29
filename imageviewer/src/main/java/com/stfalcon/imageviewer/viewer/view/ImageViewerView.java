@@ -94,11 +94,8 @@ public final class ImageViewerView<T> extends RelativeLayout {
     imagesPager.addOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
       @Override public void onPageSelected(int position) {
         if (externalTransitionImageView != null) {
-          if (isAtStartPosition()) {
-            Views.makeInvisible(externalTransitionImageView);
-          } else {
-            Views.makeVisible(externalTransitionImageView);
-          }
+          externalTransitionImageView.setVisibility(
+              isAtStartPosition() ? View.INVISIBLE : View.VISIBLE);
         }
 
         if (onPageChange != null) {
@@ -130,7 +127,8 @@ public final class ImageViewerView<T> extends RelativeLayout {
 
   @Override
   public boolean dispatchTouchEvent(@NonNull MotionEvent event) {
-    if (Views.isVisible(overlayView) && overlayView != null
+    if (overlayView != null
+        && overlayView.getVisibility() == View.VISIBLE
         && overlayView.dispatchTouchEvent(event)) {
       return true;
     }
@@ -222,11 +220,11 @@ public final class ImageViewerView<T> extends RelativeLayout {
 
   public void updateTransitionImage(@Nullable ImageView imageView) {
     if (externalTransitionImageView != null) {
-      Views.makeVisible(externalTransitionImageView);
+      externalTransitionImageView.setVisibility(View.VISIBLE);
     }
 
     if (imageView != null) {
-      Views.makeInvisible(imageView);
+      imageView.setVisibility(View.INVISIBLE);
     }
 
     externalTransitionImageView = imageView;
@@ -279,13 +277,13 @@ public final class ImageViewerView<T> extends RelativeLayout {
   }
 
   private void prepareViewsForTransition() {
-    Views.makeVisible(transitionImageContainer);
-    Views.makeGone(imagesPager);
+    transitionImageContainer.setVisibility(View.VISIBLE);
+    imagesPager.setVisibility(View.GONE);
   }
 
   private void prepareViewsForViewer() {
-    Views.makeGone(transitionImageContainer);
-    Views.makeVisible(imagesPager);
+    transitionImageContainer.setVisibility(View.GONE);
+    imagesPager.setVisibility(View.VISIBLE);
   }
 
   private boolean handleTouchIfNotScaled(MotionEvent event) {
@@ -367,7 +365,7 @@ public final class ImageViewerView<T> extends RelativeLayout {
   }
 
   private boolean dispatchOverlayTouch(MotionEvent event) {
-    return overlayView != null && Views.isVisible(overlayView)
+    return overlayView != null && overlayView.getVisibility() == View.VISIBLE
         && overlayView.dispatchTouchEvent(event);
   }
 
