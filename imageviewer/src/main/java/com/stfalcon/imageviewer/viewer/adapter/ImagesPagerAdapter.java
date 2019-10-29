@@ -5,7 +5,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import com.github.chrisbanes.photoview.PhotoView;
-import com.stfalcon.imageviewer.common.extensions.PhotoViewKt;
 import com.stfalcon.imageviewer.common.pager.RecyclingPagerAdapter;
 import com.stfalcon.imageviewer.loader.ImageLoader;
 import java.util.ArrayList;
@@ -98,7 +97,7 @@ public final class ImagesPagerAdapter<T>
     }
 
     public void resetScale() {
-      PhotoViewKt.resetScale(photoView, true);
+      photoView.setScale(photoView.getMinimumScale(), true);
     }
 
     public ViewHolder(@NonNull View itemView) {

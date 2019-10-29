@@ -1,6 +1,8 @@
 package com.stfalcon.imageviewer.viewer.view;
 
 import android.content.Context;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
@@ -16,7 +18,6 @@ import androidx.core.util.Consumer;
 import androidx.core.view.GestureDetectorCompat;
 import androidx.viewpager.widget.ViewPager;
 import com.stfalcon.imageviewer.R;
-import com.stfalcon.imageviewer.common.extensions.ImageViewKt;
 import com.stfalcon.imageviewer.common.extensions.ViewKt;
 import com.stfalcon.imageviewer.common.gestures.direction.SwipeDirection;
 import com.stfalcon.imageviewer.common.gestures.direction.SwipeDirectionDetector;
@@ -182,7 +183,7 @@ public final class ImageViewerView<T> extends RelativeLayout {
       imageLoader.loadImage(this.transitionImageView, images.get(startPosition));
     }
 
-    ImageViewKt.copyBitmapFrom(this.transitionImageView, transitionImageView);
+    copyBitmapFrom(this.transitionImageView, transitionImageView);
     transitionImageAnimator = createTransitionImageAnimator(transitionImageView);
     swipeDismissHandler = createSwipeToDismissHandler();
 
@@ -433,5 +434,14 @@ public final class ImageViewerView<T> extends RelativeLayout {
           return Unit.INSTANCE;
         },
         this::isShouldDismissToBottom);
+  }
+
+  private static void copyBitmapFrom(@NonNull ImageView dest, @Nullable ImageView target) {
+    if (target != null) {
+      Drawable drawable = target.getDrawable();
+      if (drawable != null && drawable instanceof BitmapDrawable) {
+        dest.setImageBitmap(((BitmapDrawable) drawable).getBitmap());
+      }
+    }
   }
 }
