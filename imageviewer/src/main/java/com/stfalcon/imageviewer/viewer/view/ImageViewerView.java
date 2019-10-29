@@ -111,7 +111,7 @@ public final class ImageViewerView<T> extends RelativeLayout {
     gestureDetector = new GestureDetectorCompat(context,
         new GestureDetector.SimpleOnGestureListener() {
           @Override public boolean onSingleTapConfirmed(MotionEvent e) {
-            if (imagesPager.isIdle$imageviewer_release()) {
+            if (imagesPager.isIdle()) {
               handleSingleTap(e, isOverlayWasClicked);
             }
             return false;
@@ -297,7 +297,7 @@ public final class ImageViewerView<T> extends RelativeLayout {
     switch (swipeDirection) {
       case UP:
       case DOWN:
-        if (isSwipeToDismissAllowed && !wasScaled && imagesPager.isIdle$imageviewer_release()) {
+        if (isSwipeToDismissAllowed && !wasScaled && imagesPager.isIdle()) {
           return swipeDismissHandler.onTouch(rootContainer, event);
         } else {
           return true;
