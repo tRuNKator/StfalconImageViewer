@@ -23,7 +23,7 @@ import android.annotation.SuppressLint
 import android.view.MotionEvent
 import android.view.View
 import android.view.animation.AccelerateInterpolator
-import com.stfalcon.imageviewer.common.extensions.hitRect
+import com.stfalcon.imageviewer.common.tools.Views
 
 internal class SwipeToDismissHandler(
     private val swipeView: View,
@@ -45,7 +45,7 @@ internal class SwipeToDismissHandler(
     override fun onTouch(v: View, event: MotionEvent): Boolean {
         when (event.action) {
             MotionEvent.ACTION_DOWN -> {
-                if (swipeView.hitRect.contains(event.x.toInt(), event.y.toInt())) {
+                if (Views.getHitRect(swipeView).contains(event.x.toInt(), event.y.toInt())) {
                     isTracking = true
                 }
                 startY = event.y

@@ -18,11 +18,11 @@ import androidx.core.util.Consumer;
 import androidx.core.view.GestureDetectorCompat;
 import androidx.viewpager.widget.ViewPager;
 import com.stfalcon.imageviewer.R;
-import com.stfalcon.imageviewer.common.extensions.ViewKt;
 import com.stfalcon.imageviewer.common.gestures.direction.SwipeDirection;
 import com.stfalcon.imageviewer.common.gestures.direction.SwipeDirectionDetector;
 import com.stfalcon.imageviewer.common.gestures.dismiss.SwipeToDismissHandler;
 import com.stfalcon.imageviewer.common.pager.MultiTouchViewPager;
+import com.stfalcon.imageviewer.common.tools.Views;
 import com.stfalcon.imageviewer.loader.ImageLoader;
 import com.stfalcon.imageviewer.viewer.adapter.ImagesPagerAdapter;
 import java.util.Collections;
@@ -95,9 +95,9 @@ public final class ImageViewerView<T> extends RelativeLayout {
       @Override public void onPageSelected(int position) {
         if (externalTransitionImageView != null) {
           if (isAtStartPosition()) {
-            ViewKt.makeInvisible(externalTransitionImageView);
+            Views.makeInvisible(externalTransitionImageView);
           } else {
-            ViewKt.makeVisible(externalTransitionImageView);
+            Views.makeVisible(externalTransitionImageView);
           }
         }
 
@@ -130,7 +130,7 @@ public final class ImageViewerView<T> extends RelativeLayout {
 
   @Override
   public boolean dispatchTouchEvent(@NonNull MotionEvent event) {
-    if (ViewKt.isVisible(overlayView) && overlayView != null
+    if (Views.isVisible(overlayView) && overlayView != null
         && overlayView.dispatchTouchEvent(event)) {
       return true;
     }
@@ -222,11 +222,11 @@ public final class ImageViewerView<T> extends RelativeLayout {
 
   public void updateTransitionImage(@Nullable ImageView imageView) {
     if (externalTransitionImageView != null) {
-      ViewKt.makeVisible(externalTransitionImageView);
+      Views.makeVisible(externalTransitionImageView);
     }
 
     if (imageView != null) {
-      ViewKt.makeInvisible(imageView);
+      Views.makeInvisible(imageView);
     }
 
     externalTransitionImageView = imageView;
@@ -250,16 +250,16 @@ public final class ImageViewerView<T> extends RelativeLayout {
     //}
 
     transitionImageAnimator.animateOpen(containerPadding, duration -> {
-      ViewKt.animateAlpha(backgroundView, 0f, 1f, duration);
+      Views.animateAlpha(backgroundView, 0f, 1f, duration);
       if (overlayView != null) {
-        ViewKt.animateAlpha(overlayView, 0f, 1f, duration);
+        Views.animateAlpha(overlayView, 0f, 1f, duration);
       }
     }, this::prepareViewsForViewer);
   }
 
   private void animateClose() {
     prepareViewsForTransition();
-    ViewKt.applyMargin(dismissContainer, 0, 0, 0, 0);
+    Views.applyMargin(dismissContainer, 0, 0, 0, 0);
 
     // TODO: 10/29/2019 lateinit
     //if (transitionImageAnimator == null) {
@@ -267,9 +267,9 @@ public final class ImageViewerView<T> extends RelativeLayout {
     //}
 
     transitionImageAnimator.animateClose(isShouldDismissToBottom(), duration -> {
-      ViewKt.animateAlpha(backgroundView, backgroundView.getAlpha(), 0f, duration);
+      Views.animateAlpha(backgroundView, backgroundView.getAlpha(), 0f, duration);
       if (overlayView != null) {
-        ViewKt.animateAlpha(overlayView, overlayView.getAlpha(), 0f, duration);
+        Views.animateAlpha(overlayView, overlayView.getAlpha(), 0f, duration);
       }
     }, () -> {
       if (onDismiss != null) {
@@ -279,13 +279,13 @@ public final class ImageViewerView<T> extends RelativeLayout {
   }
 
   private void prepareViewsForTransition() {
-    ViewKt.makeVisible(transitionImageContainer);
-    ViewKt.makeGone(imagesPager);
+    Views.makeVisible(transitionImageContainer);
+    Views.makeGone(imagesPager);
   }
 
   private void prepareViewsForViewer() {
-    ViewKt.makeGone(transitionImageContainer);
-    ViewKt.makeVisible(imagesPager);
+    Views.makeGone(transitionImageContainer);
+    Views.makeVisible(imagesPager);
   }
 
   private boolean handleTouchIfNotScaled(MotionEvent event) {
@@ -353,7 +353,7 @@ public final class ImageViewerView<T> extends RelativeLayout {
 
   private void handleSingleTap(MotionEvent event, boolean isOverlayWasClicked) {
     if (overlayView != null && !isOverlayWasClicked) {
-      ViewKt.switchVisibilityWithAnimation(overlayView);
+      Views.switchVisibilityWithAnimation(overlayView);
       super.dispatchTouchEvent(event);
     }
   }
@@ -367,7 +367,7 @@ public final class ImageViewerView<T> extends RelativeLayout {
   }
 
   private boolean dispatchOverlayTouch(MotionEvent event) {
-    return overlayView != null && ViewKt.isVisible(overlayView)
+    return overlayView != null && Views.isVisible(overlayView)
         && overlayView.dispatchTouchEvent(event);
   }
 
@@ -414,7 +414,7 @@ public final class ImageViewerView<T> extends RelativeLayout {
 
   private boolean isShouldDismissToBottom() {
     return externalTransitionImageView == null
-        || !ViewKt.isRectVisible(externalTransitionImageView)
+        || !Views.isRectVisible(externalTransitionImageView)
         || !isAtStartPosition();
   }
 

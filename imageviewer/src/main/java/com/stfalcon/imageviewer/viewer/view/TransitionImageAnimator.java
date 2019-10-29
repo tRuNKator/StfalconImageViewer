@@ -13,7 +13,7 @@ import androidx.transition.AutoTransition;
 import androidx.transition.Transition;
 import androidx.transition.TransitionListenerAdapter;
 import androidx.transition.TransitionManager;
-import com.stfalcon.imageviewer.common.extensions.ViewKt;
+import com.stfalcon.imageviewer.common.tools.Views;
 
 // TODO: 10/29/2019 internal
 public final class TransitionImageAnimator {
@@ -45,7 +45,7 @@ public final class TransitionImageAnimator {
   // TODO: 10/29/2019 internal
   public void animateOpen(@NonNull int[] containerPadding,
       @NonNull Consumer<Long> onTransitionStart, @NonNull Runnable onTransitionEnd) {
-    if (ViewKt.isRectVisible(externalImage)) {
+    if (Views.isRectVisible(externalImage)) {
       onTransitionStart.accept(TRANSITION_DURATION_OPEN);
       doOpenTransition(containerPadding, onTransitionEnd);
     } else {
@@ -56,7 +56,7 @@ public final class TransitionImageAnimator {
   // TODO: 10/29/2019 internal
   public void animateClose(boolean shouldDismissToBottom,
       @NonNull Consumer<Long> onTransitionStart, @NonNull Runnable onTransitionEnd) {
-    if (ViewKt.isRectVisible(externalImage) && !shouldDismissToBottom) {
+    if (Views.isRectVisible(externalImage) && !shouldDismissToBottom) {
       onTransitionStart.accept(TRANSITION_DURATION_CLOSE);
       doCloseTransition(onTransitionEnd);
     } else {
@@ -87,9 +87,9 @@ public final class TransitionImageAnimator {
           onTransitionEnd.run();
         }
       }));
-      ViewKt.makeViewMatchParent(internalImageContainer);
-      ViewKt.makeViewMatchParent(internalImage);
-      ViewKt.applyMargin(internalRoot,
+      Views.makeViewMatchParent(internalImageContainer);
+      Views.makeViewMatchParent(internalImage);
+      Views.applyMargin(internalRoot,
           containerPadding[0], containerPadding[1],
           containerPadding[2], containerPadding[3]
       );
@@ -109,13 +109,13 @@ public final class TransitionImageAnimator {
   private void prepareTransitionLayout() {
     ImageView externalImage = this.externalImage;
     if (externalImage != null) {
-      if (ViewKt.isRectVisible(externalImage)) {
-        Rect rect = ViewKt.getLocalVisibleRect(externalImage);
-        ViewKt.requestNewSize(internalImage, externalImage.getWidth(), externalImage.getHeight());
-        ViewKt.applyMargin(internalImage, -rect.left, -rect.top, null, null);
-        rect = ViewKt.getGlobalVisibleRect(externalImage);
-        ViewKt.requestNewSize(internalImageContainer, rect.width(), rect.height());
-        ViewKt.applyMargin(internalImageContainer, rect.left, rect.top, rect.right, rect.bottom);
+      if (Views.isRectVisible(externalImage)) {
+        Rect rect = Views.getLocalVisibleRect(externalImage);
+        Views.requestNewSize(internalImage, externalImage.getWidth(), externalImage.getHeight());
+        Views.applyMargin(internalImage, -rect.left, -rect.top, null, null);
+        rect = Views.getGlobalVisibleRect(externalImage);
+        Views.requestNewSize(internalImageContainer, rect.width(), rect.height());
+        Views.applyMargin(internalImageContainer, rect.left, rect.top, rect.right, rect.bottom);
       }
 
       resetRootTranslation();
