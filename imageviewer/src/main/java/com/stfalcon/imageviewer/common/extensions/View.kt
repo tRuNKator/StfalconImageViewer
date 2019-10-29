@@ -52,14 +52,6 @@ internal fun View.makeGone() {
     visibility = View.GONE
 }
 
-internal inline fun <T : View> T.postApply(crossinline block: T.() -> Unit) {
-    post { apply(block) }
-}
-
-internal inline fun <T : View> T.postDelayed(delayMillis: Long, crossinline block: T.() -> Unit) {
-    postDelayed({ block() }, delayMillis)
-}
-
 internal fun View.applyMargin(
     start: Int? = null,
     top: Int? = null,
