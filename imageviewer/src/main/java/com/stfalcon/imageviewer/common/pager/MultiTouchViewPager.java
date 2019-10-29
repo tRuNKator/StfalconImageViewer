@@ -6,11 +6,10 @@ import android.util.AttributeSet;
 import android.view.MotionEvent;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RestrictTo;
 import androidx.viewpager.widget.ViewPager;
-import kotlin.jvm.internal.Intrinsics;
-import org.jetbrains.annotations.NotNull;
 
-// TODO: 10/29/2019 internal
+@RestrictTo(value = RestrictTo.Scope.LIBRARY)
 public final class MultiTouchViewPager extends ViewPager {
   private boolean isIdle = true;
   private boolean isInterceptionDisallowed;
@@ -49,7 +48,7 @@ public final class MultiTouchViewPager extends ViewPager {
   }
 
   @Override
-  public boolean dispatchTouchEvent(@NotNull MotionEvent ev) {
+  public boolean dispatchTouchEvent(@NonNull MotionEvent ev) {
     boolean handled;
     if (ev.getPointerCount() > 1 && isInterceptionDisallowed) {
       requestDisallowInterceptTouchEvent(false);
@@ -63,7 +62,7 @@ public final class MultiTouchViewPager extends ViewPager {
   }
 
   @Override
-  public boolean onInterceptTouchEvent(@NotNull MotionEvent ev) {
+  public boolean onInterceptTouchEvent(@NonNull MotionEvent ev) {
     boolean handled;
     if (ev.getPointerCount() > 1) {
       handled = false;
@@ -80,7 +79,7 @@ public final class MultiTouchViewPager extends ViewPager {
 
   @SuppressLint({"ClickableViewAccessibility"})
   @Override
-  public boolean onTouchEvent(@NotNull MotionEvent ev) {
+  public boolean onTouchEvent(@NonNull MotionEvent ev) {
     boolean handled;
     try {
       handled = super.onTouchEvent(ev);

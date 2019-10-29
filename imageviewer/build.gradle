@@ -1,5 +1,4 @@
 apply plugin: 'com.android.library'
-apply plugin: 'kotlin-android'
 apply plugin: 'com.novoda.bintray-release'
 
 android {
@@ -32,22 +31,10 @@ dependencies {
   api 'androidx.appcompat:appcompat:1.0.2'
   api 'androidx.transition:transition:1.1.0'
   implementation 'com.github.chrisbanes:PhotoView:2.2.0'
-  implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 }
 
 repositories {
   maven { url "https://jitpack.io" }
-}
-
-tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).all {
-  kotlinOptions {
-    jvmTarget = "1.8"
-  }
-}
-
-// Avoid Kotlin docs error
-tasks.withType(Javadoc) {
-  enabled = false
 }
 
 // Remove javadoc related tasks

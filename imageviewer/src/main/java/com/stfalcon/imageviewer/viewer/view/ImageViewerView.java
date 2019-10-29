@@ -14,6 +14,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RestrictTo;
 import androidx.core.util.Consumer;
 import androidx.core.view.GestureDetectorCompat;
 import androidx.viewpager.widget.ViewPager;
@@ -28,7 +29,7 @@ import com.stfalcon.imageviewer.viewer.adapter.ImagesPagerAdapter;
 import java.util.Collections;
 import java.util.List;
 
-// TODO: 10/29/2019 internal
+@RestrictTo(value = RestrictTo.Scope.LIBRARY)
 public final class ImageViewerView<T> extends RelativeLayout {
   public boolean isZoomingAllowed = true;
   public boolean isSwipeToDismissAllowed = true;

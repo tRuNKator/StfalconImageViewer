@@ -4,9 +4,10 @@ import android.content.Context;
 import android.view.MotionEvent;
 import android.view.ViewConfiguration;
 import androidx.annotation.NonNull;
+import androidx.annotation.RestrictTo;
 import androidx.core.util.Consumer;
 
-// TODO: 10/29/2019 internal
+@RestrictTo(value = RestrictTo.Scope.LIBRARY)
 public final class SwipeDirectionDetector {
   private final int touchSlop;
   private float startX;

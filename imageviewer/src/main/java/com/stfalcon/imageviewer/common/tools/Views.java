@@ -11,10 +11,11 @@ import android.view.ViewGroup;
 import android.view.ViewGroup.MarginLayoutParams;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RestrictTo;
 
 import static android.view.ViewGroup.LayoutParams.MATCH_PARENT;
 
-// TODO: 10/29/2019 internal
+@RestrictTo(value = RestrictTo.Scope.LIBRARY)
 public final class Views {
   @NonNull
   public static Rect getLocalVisibleRect(@Nullable View view) {

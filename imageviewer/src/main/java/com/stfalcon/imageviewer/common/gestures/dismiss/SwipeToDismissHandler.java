@@ -10,9 +10,11 @@ import android.view.View.OnTouchListener;
 import android.view.animation.AccelerateInterpolator;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RestrictTo;
 import com.stfalcon.imageviewer.common.BooleanSupplier;
 import com.stfalcon.imageviewer.common.tools.Views;
 
+@RestrictTo(value = RestrictTo.Scope.LIBRARY)
 public final class SwipeToDismissHandler implements OnTouchListener {
   private static final long ANIMATION_DURATION = 200L;
 
@@ -20,7 +22,7 @@ public final class SwipeToDismissHandler implements OnTouchListener {
 
   private final View swipeView;
   private final Runnable onDismiss;
-  private final OnSwipeViewModed onSwipeViewMove;
+  private final OnSwipeViewMoved onSwipeViewMove;
   private final BooleanSupplier shouldAnimateDismiss;
 
   private int translationLimit;
@@ -28,7 +30,7 @@ public final class SwipeToDismissHandler implements OnTouchListener {
   private float startY;
 
   public SwipeToDismissHandler(@NonNull View swipeView, @NonNull Runnable onDismiss,
-      @NonNull OnSwipeViewModed onSwipeViewMove, @NonNull BooleanSupplier shouldAnimateDismiss) {
+      @NonNull OnSwipeViewMoved onSwipeViewMove, @NonNull BooleanSupplier shouldAnimateDismiss) {
     this.swipeView = swipeView;
     this.onDismiss = onDismiss;
     this.onSwipeViewMove = onSwipeViewMove;
@@ -59,7 +61,7 @@ public final class SwipeToDismissHandler implements OnTouchListener {
         if (isTracking) {
           float translationY = event.getY() - startY;
           swipeView.setTranslationY(translationY);
-          onSwipeViewMove.onSwipeViewModed(translationY, translationLimit);
+          onSwipeViewMove.onSwipeViewMoved(translationY, translationLimit);
         }
 
         return true;
@@ -89,7 +91,7 @@ public final class SwipeToDismissHandler implements OnTouchListener {
         .setDuration(duration);
     animator.setInterpolator(accelerateInterpolator);
     animator.addUpdateListener(
-        listener -> onSwipeViewMove.onSwipeViewModed(swipeView.getTranslationY(),
+        listener -> onSwipeViewMove.onSwipeViewMoved(swipeView.getTranslationY(),
             translationLimit));
     animator.addListener(new AnimatorListenerAdapter() {
       public void onAnimationEnd(@Nullable Animator animation) {

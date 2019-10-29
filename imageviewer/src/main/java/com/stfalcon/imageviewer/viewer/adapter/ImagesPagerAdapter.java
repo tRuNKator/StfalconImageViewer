@@ -4,13 +4,14 @@ import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
 import androidx.annotation.NonNull;
+import androidx.annotation.RestrictTo;
 import com.github.chrisbanes.photoview.PhotoView;
 import com.stfalcon.imageviewer.common.pager.RecyclingPagerAdapter;
 import com.stfalcon.imageviewer.loader.ImageLoader;
 import java.util.ArrayList;
 import java.util.List;
 
-// TODO: 10/29/2019 internal
+@RestrictTo(value = RestrictTo.Scope.LIBRARY)
 public final class ImagesPagerAdapter<T>
     extends RecyclingPagerAdapter<ImagesPagerAdapter.ViewHolder> {
   private final Context context;
@@ -32,7 +33,7 @@ public final class ImagesPagerAdapter<T>
   public boolean isScaled(int position) {
     ViewHolder found = null;
     for (ViewHolder holder : holders) {
-      if (holder.getPosition$imageviewer_release() == position) {
+      if (holder.getPosition() == position) {
         found = holder;
         break;
       }
@@ -43,8 +44,7 @@ public final class ImagesPagerAdapter<T>
 
   @NonNull
   @Override
-  public ViewHolder onCreateViewHolder$imageviewer_release(@NonNull ViewGroup parent,
-      int viewType) {
+  public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
     PhotoView photoView = new PhotoView(context);
     photoView.setEnabled(isZoomingAllowed);
     photoView.setOnViewDragListener(
@@ -55,13 +55,13 @@ public final class ImagesPagerAdapter<T>
   }
 
   @Override
-  public void onBindViewHolder$imageviewer_release(@NonNull ImagesPagerAdapter.ViewHolder holder,
+  public void onBindViewHolder(@NonNull ImagesPagerAdapter.ViewHolder holder,
       int position) {
     holder.bind(position);
   }
 
   @Override
-  public int getItemCount$imageviewer_release() {
+  public int getItemCount() {
     return images.size();
   }
 
@@ -73,7 +73,7 @@ public final class ImagesPagerAdapter<T>
   public void resetScale(int position) {
     ViewHolder found = null;
     for (ViewHolder holder : holders) {
-      if (holder.getPosition$imageviewer_release() == position) {
+      if (holder.getPosition() == position) {
         found = holder;
         break;
       }
@@ -92,7 +92,7 @@ public final class ImagesPagerAdapter<T>
     }
 
     public void bind(int position) {
-      setPosition$imageviewer_release(position);
+      setPosition(position);
       imageLoader.loadImage(photoView, images.get(position));
     }
 

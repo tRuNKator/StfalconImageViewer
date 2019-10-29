@@ -8,6 +8,7 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RestrictTo;
 import androidx.core.util.Consumer;
 import androidx.transition.AutoTransition;
 import androidx.transition.Transition;
@@ -15,12 +16,11 @@ import androidx.transition.TransitionListenerAdapter;
 import androidx.transition.TransitionManager;
 import com.stfalcon.imageviewer.common.tools.Views;
 
-// TODO: 10/29/2019 internal
+@RestrictTo(value = RestrictTo.Scope.LIBRARY)
 public final class TransitionImageAnimator {
   private static final long TRANSITION_DURATION_OPEN = 200L;
   private static final long TRANSITION_DURATION_CLOSE = 250L;
 
-  // TODO: 10/29/2019 internal
   public boolean isAnimating;
   private boolean isClosing;
   private final ImageView externalImage;
@@ -42,7 +42,6 @@ public final class TransitionImageAnimator {
     return (ViewGroup) internalImageContainer.getParent();
   }
 
-  // TODO: 10/29/2019 internal
   public void animateOpen(@NonNull int[] containerPadding,
       @NonNull Consumer<Long> onTransitionStart, @NonNull Runnable onTransitionEnd) {
     if (Views.isRectVisible(externalImage)) {
@@ -53,7 +52,6 @@ public final class TransitionImageAnimator {
     }
   }
 
-  // TODO: 10/29/2019 internal
   public void animateClose(boolean shouldDismissToBottom,
       @NonNull Consumer<Long> onTransitionStart, @NonNull Runnable onTransitionEnd) {
     if (Views.isRectVisible(externalImage) && !shouldDismissToBottom) {

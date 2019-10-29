@@ -5,6 +5,7 @@ import android.view.KeyEvent;
 import android.widget.ImageView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RestrictTo;
 import androidx.appcompat.app.AlertDialog;
 import com.stfalcon.imageviewer.R;
 import com.stfalcon.imageviewer.listeners.OnImageChangeListener;
@@ -12,8 +13,8 @@ import com.stfalcon.imageviewer.viewer.builder.BuilderData;
 import com.stfalcon.imageviewer.viewer.view.ImageViewerView;
 import java.util.List;
 
-// TODO: 10/29/2019 internal
 @SuppressWarnings("WeakerAccess")
+@RestrictTo(value = RestrictTo.Scope.LIBRARY)
 public final class ImageViewerDialog<T> {
   final AlertDialog dialog;
   final ImageViewerView<T> viewerView;

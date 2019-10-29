@@ -1,8 +1,9 @@
 package com.stfalcon.imageviewer.common.gestures.direction;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RestrictTo;
 
-// TODO: 10/29/2019 internal
+@RestrictTo(value = RestrictTo.Scope.LIBRARY)
 public enum SwipeDirection {
   NOT_DETECTED,
   UP,
