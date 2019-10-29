@@ -11,7 +11,6 @@ import com.stfalcon.imageviewer.listeners.OnImageChangeListener;
 import com.stfalcon.imageviewer.viewer.builder.BuilderData;
 import com.stfalcon.imageviewer.viewer.view.ImageViewerView;
 import java.util.List;
-import kotlin.Unit;
 
 @SuppressWarnings("WeakerAccess")
 public final class ImageViewerDialog<T> {
@@ -57,12 +56,8 @@ public final class ImageViewerDialog<T> {
       if (listener != null) {
         listener.onImageChange(position);
       }
-      return Unit.INSTANCE;
     });
-    viewerView.setOnDismiss$imageviewer_release(() -> {
-      dialog.dismiss();
-      return Unit.INSTANCE;
-    });
+    viewerView.setOnDismiss$imageviewer_release(dialog::dismiss);
   }
 
   public void show(boolean animate) {

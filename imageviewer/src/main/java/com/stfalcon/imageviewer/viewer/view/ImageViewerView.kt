@@ -25,6 +25,7 @@ import android.view.ViewGroup
 import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.RelativeLayout
+import androidx.core.util.Consumer
 import androidx.core.view.GestureDetectorCompat
 import com.stfalcon.imageviewer.R
 import com.stfalcon.imageviewer.common.extensions.addOnPageChangeListener
@@ -64,8 +65,8 @@ internal class ImageViewerView<T> @JvmOverloads constructor(
             imagesPager.currentItem = value
         }
 
-    internal var onDismiss: (() -> Unit)? = null
-    internal var onPageChange: ((position: Int) -> Unit)? = null
+    internal var onDismiss: Runnable? = null
+    internal var onPageChange: (Consumer<Int>)? = null
 
     internal val isScaled
         get() = imagesAdapter?.isScaled(currentPosition) ?: false
@@ -139,7 +140,7 @@ internal class ImageViewerView<T> @JvmOverloads constructor(
                 externalTransitionImageView?.apply {
                     if (isAtStartPosition) makeInvisible() else makeVisible()
                 }
-                onPageChange?.invoke(it)
+                onPageChange?.accept(it)
             })
 
         directionDetector = createSwipeDirectionDetector()
@@ -247,7 +248,7 @@ internal class ImageViewerView<T> @JvmOverloads constructor(
                 backgroundView.animateAlpha(backgroundView.alpha, 0f, duration)
                 overlayView?.animateAlpha(overlayView?.alpha, 0f, duration)
             },
-            onTransitionEnd = { onDismiss?.invoke() })
+            onTransitionEnd = { onDismiss?.run() })
     }
 
     private fun prepareViewsForTransition() {
