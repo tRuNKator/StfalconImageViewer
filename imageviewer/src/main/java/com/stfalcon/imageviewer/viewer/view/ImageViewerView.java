@@ -55,7 +55,6 @@ public final class ImageViewerView<T> extends RelativeLayout {
   private final SwipeDirectionDetector directionDetector;
   private final GestureDetectorCompat gestureDetector;
   private final ScaleGestureDetector scaleDetector;
-  // TODO: 10/29/2019 lateinit
   private @NonNull SwipeToDismissHandler swipeDismissHandler;
 
   private boolean wasScaled;
@@ -65,7 +64,6 @@ public final class ImageViewerView<T> extends RelativeLayout {
 
   private @NonNull List<T> images = Collections.emptyList();
   private @Nullable ImageLoader<T> imageLoader;
-  // TODO: 10/29/2019 lateinit
   private @NonNull TransitionImageAnimator transitionImageAnimator;
 
   private int startPosition;
@@ -133,12 +131,8 @@ public final class ImageViewerView<T> extends RelativeLayout {
       return true;
     }
 
-    // TODO: 10/29/2019 lateinit
-    //if (transitionImageAnimator == null) {
-    //  Intrinsics.throwUninitializedPropertyAccessException("transitionImageAnimator");
-    //}
-
-    if (transitionImageAnimator.isAnimating) {
+    //noinspection ConstantConditions
+    if (transitionImageAnimator == null || transitionImageAnimator.isAnimating) {
       return true;
     }
     //one more tiny kludge to prevent single tap a one-finger zoom which is broken by the SDK
@@ -185,11 +179,6 @@ public final class ImageViewerView<T> extends RelativeLayout {
     transitionImageAnimator = createTransitionImageAnimator(transitionImageView);
     swipeDismissHandler = createSwipeToDismissHandler();
 
-    // TODO: 10/29/2019 lateinit
-    //if (swipeDismissHandler == null) {
-    //  Intrinsics.throwUninitializedPropertyAccessException("swipeDismissHandler");
-    //}
-
     rootContainer.setOnTouchListener(swipeDismissHandler);
     if (animate) {
       animateOpen();
@@ -200,11 +189,6 @@ public final class ImageViewerView<T> extends RelativeLayout {
 
   public void close() {
     if (isShouldDismissToBottom()) {
-      // TODO: 10/29/2019 lateinit
-      //if (swipeDismissHandler == null) {
-      //  Intrinsics.throwUninitializedPropertyAccessException("swipeDismissHandler");
-      //}
-
       swipeDismissHandler.initiateDismissToBottom();
     } else {
       animateClose();
@@ -242,11 +226,6 @@ public final class ImageViewerView<T> extends RelativeLayout {
   }
 
   private void animateOpen() {
-    // TODO: 10/29/2019 lateinit
-    //if (transitionImageAnimator == null) {
-    //  Intrinsics.throwUninitializedPropertyAccessException("transitionImageAnimator");
-    //}
-
     transitionImageAnimator.animateOpen(containerPadding, duration -> {
       Views.animateAlpha(backgroundView, 0f, 1f, duration);
       if (overlayView != null) {
@@ -258,11 +237,6 @@ public final class ImageViewerView<T> extends RelativeLayout {
   private void animateClose() {
     prepareViewsForTransition();
     Views.applyMargin(dismissContainer, 0, 0, 0, 0);
-
-    // TODO: 10/29/2019 lateinit
-    //if (transitionImageAnimator == null) {
-    //  Intrinsics.throwUninitializedPropertyAccessException("transitionImageAnimator");
-    //}
 
     transitionImageAnimator.animateClose(isShouldDismissToBottom(), duration -> {
       Views.animateAlpha(backgroundView, backgroundView.getAlpha(), 0f, duration);
@@ -327,22 +301,12 @@ public final class ImageViewerView<T> extends RelativeLayout {
     wasScaled = false;
     imagesPager.dispatchTouchEvent(event);
 
-    // TODO: 10/29/2019 lateinit
-    //if (swipeDismissHandler == null) {
-    //  Intrinsics.throwUninitializedPropertyAccessException("swipeDismissHandler");
-    //}
-
     swipeDismissHandler.onTouch(rootContainer, event);
     isOverlayWasClicked = dispatchOverlayTouch(event);
   }
 
   private void handleEventActionUp(MotionEvent event) {
     wasDoubleTapped = false;
-
-    // TODO: 10/29/2019 lateinit
-    //if (swipeDismissHandler == null) {
-    //  Intrinsics.throwUninitializedPropertyAccessException("swipeDismissHandler");
-    //}
 
     swipeDismissHandler.onTouch(rootContainer, event);
     imagesPager.dispatchTouchEvent(event);

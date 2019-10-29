@@ -1,5 +1,4 @@
 apply plugin: 'com.android.library'
-apply plugin: 'com.novoda.bintray-release'
 
 android {
   compileSdkVersion 28
@@ -14,17 +13,6 @@ android {
     sourceCompatibility JavaVersion.VERSION_1_8
     targetCompatibility JavaVersion.VERSION_1_8
   }
-}
-
-publish {
-  groupId = 'com.github.trunkator'
-  artifactId = 'stfalcon-imageviewer'
-  publishVersion = '0.1.1'
-  desc = 'A customizable full-screen image viewer with shared image transition support, "pinch to zoom" and "swipe to dismiss" gestures.'
-  licences = ['Apache-2.0']
-  uploadName = 'StfalconImageViewer'
-  website = 'https://github.com/tRuNKator/StfalconImageViewer'
-  userOrg = 'trunkator'
 }
 
 dependencies {
