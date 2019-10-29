@@ -24,12 +24,10 @@ public class StfalconImageViewer<T> {
 
   private static final String TAG = "StfalconImageViewer";
 
-  private Context context;
   private BuilderData<T> builderData;
   private ImageViewerDialog<T> dialog;
 
   protected StfalconImageViewer(@NonNull Context context, @NonNull BuilderData<T> builderData) {
-    this.context = context;
     this.builderData = builderData;
     this.dialog = new ImageViewerDialog<>(context, builderData);
   }
