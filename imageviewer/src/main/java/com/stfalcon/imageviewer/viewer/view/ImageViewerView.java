@@ -27,7 +27,6 @@ import com.stfalcon.imageviewer.loader.ImageLoader;
 import com.stfalcon.imageviewer.viewer.adapter.ImagesPagerAdapter;
 import java.util.Collections;
 import java.util.List;
-import kotlin.Unit;
 
 // TODO: 10/29/2019 internal
 public final class ImageViewerView<T> extends RelativeLayout {
@@ -205,7 +204,7 @@ public final class ImageViewerView<T> extends RelativeLayout {
       //  Intrinsics.throwUninitializedPropertyAccessException("swipeDismissHandler");
       //}
 
-      swipeDismissHandler.initiateDismissToBottom$imageviewer_release();
+      swipeDismissHandler.initiateDismissToBottom();
     } else {
       animateClose();
     }
@@ -427,11 +426,7 @@ public final class ImageViewerView<T> extends RelativeLayout {
 
   private SwipeToDismissHandler createSwipeToDismissHandler() {
     return new SwipeToDismissHandler(dismissContainer, this::animateClose,
-        (aFloat, integer) -> {
-          handleSwipeViewMove(aFloat, integer);
-          return Unit.INSTANCE;
-        },
-        this::isShouldDismissToBottom);
+        this::handleSwipeViewMove, this::isShouldDismissToBottom);
   }
 
   private static void copyBitmapFrom(@NonNull ImageView dest, @Nullable ImageView target) {
