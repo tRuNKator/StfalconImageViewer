@@ -215,7 +215,7 @@ public final class ImageViewerView<T> extends RelativeLayout {
   public void updateImages(@NonNull List<T> images) {
     this.images = images;
     if (imagesAdapter != null) {
-      imagesAdapter.updateImages$imageviewer_release(images);
+      imagesAdapter.updateImages(images);
     }
   }
 
@@ -238,7 +238,7 @@ public final class ImageViewerView<T> extends RelativeLayout {
 
   public void resetScale() {
     if (imagesAdapter != null) {
-      imagesAdapter.resetScale$imageviewer_release(getCurrentPosition());
+      imagesAdapter.resetScale(getCurrentPosition());
     }
   }
 

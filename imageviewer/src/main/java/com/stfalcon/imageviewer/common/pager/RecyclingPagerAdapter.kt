@@ -31,7 +31,7 @@ internal abstract class RecyclingPagerAdapter<VH : RecyclingPagerAdapter.ViewHol
 
     override fun getCount() = getItemCount()
 
-    override fun getItemPosition(item: Any) = PagerAdapter.POSITION_NONE
+    override fun getItemPosition(item: Any) = POSITION_NONE
 
     @Suppress("UNCHECKED_CAST")
     override fun instantiateItem(parent: ViewGroup, position: Int): Any {
