@@ -46,7 +46,7 @@ public class StfalconImageViewer<T> {
    * rotation handling.
    */
   public void show(boolean animate) {
-    if (!builderData.getImages().isEmpty()) {
+    if (!builderData.images.isEmpty()) {
       dialog.show(animate);
     } else {
       Log.w(TAG, "Images list cannot be empty! Viewer ignored.");
@@ -113,7 +113,7 @@ public class StfalconImageViewer<T> {
      * @return This Builder object to allow calls chaining
      */
     public Builder<T> withStartPosition(int position) {
-      this.data.setStartPosition(position);
+      data.startPosition = position;
       return this;
     }
 
@@ -123,7 +123,7 @@ public class StfalconImageViewer<T> {
      * @return This Builder object to allow calls chaining
      */
     public Builder<T> withBackgroundColor(@ColorInt int color) {
-      this.data.setBackgroundColor(color);
+      this.data.backgroundColor =color;
       return this;
     }
 
@@ -143,7 +143,7 @@ public class StfalconImageViewer<T> {
      * @return This Builder object to allow calls chaining
      */
     public Builder<T> withOverlayView(View view) {
-      this.data.setOverlayView(view);
+      this.data.overlayView = view;
       return this;
     }
 
@@ -153,7 +153,7 @@ public class StfalconImageViewer<T> {
      * @return This Builder object to allow calls chaining
      */
     public Builder<T> withImagesMargin(@DimenRes int dimen) {
-      this.data.setImageMarginPixels(Math.round(context.getResources().getDimension(dimen)));
+      this.data.imageMarginPixels = Math.round(context.getResources().getDimension(dimen));
       return this;
     }
 
@@ -163,7 +163,7 @@ public class StfalconImageViewer<T> {
      * @return This Builder object to allow calls chaining
      */
     public Builder<T> withImageMarginPixels(int marginPixels) {
-      this.data.setImageMarginPixels(marginPixels);
+      this.data.imageMarginPixels = marginPixels;
       return this;
     }
 
@@ -200,7 +200,7 @@ public class StfalconImageViewer<T> {
      * @return This Builder object to allow calls chaining
      */
     public Builder<T> withContainerPaddingPixels(@Px int padding) {
-      this.data.setContainerPaddingPixels(new int[] {padding, padding, padding, padding});
+      this.data.containerPaddingPixels = new int[] {padding, padding, padding, padding};
       return this;
     }
 
@@ -210,7 +210,7 @@ public class StfalconImageViewer<T> {
      * @return This Builder object to allow calls chaining
      */
     public Builder<T> withContainerPaddingPixels(int start, int top, int end, int bottom) {
-      this.data.setContainerPaddingPixels(new int[] {start, top, end, bottom});
+      this.data.containerPaddingPixels = new int[] {start, top, end, bottom};
       return this;
     }
 
@@ -220,7 +220,7 @@ public class StfalconImageViewer<T> {
      * @return This Builder object to allow calls chaining
      */
     public Builder<T> withHiddenStatusBar(boolean value) {
-      this.data.setShouldStatusBarHide(value);
+      this.data.shouldStatusBarHide = value;
       return this;
     }
 
@@ -230,7 +230,7 @@ public class StfalconImageViewer<T> {
      * @return This Builder object to allow calls chaining
      */
     public Builder<T> allowZooming(boolean value) {
-      this.data.setZoomingAllowed(value);
+      this.data.isZoomingAllowed = value;
       return this;
     }
 
@@ -240,7 +240,7 @@ public class StfalconImageViewer<T> {
      * @return This Builder object to allow calls chaining
      */
     public Builder<T> allowSwipeToDismiss(boolean value) {
-      this.data.setSwipeToDismissAllowed(value);
+      this.data.isSwipeToDismissAllowed = value;
       return this;
     }
 
@@ -250,7 +250,7 @@ public class StfalconImageViewer<T> {
      * @return This Builder object to allow calls chaining
      */
     public Builder<T> withTransitionFrom(ImageView imageView) {
-      this.data.setTransitionView(imageView);
+      this.data.transitionView = imageView;
       return this;
     }
 
@@ -260,7 +260,7 @@ public class StfalconImageViewer<T> {
      * @return This Builder object to allow calls chaining
      */
     public Builder<T> withImageChangeListener(OnImageChangeListener imageChangeListener) {
-      this.data.setImageChangeListener(imageChangeListener);
+      this.data.imageChangeListener = imageChangeListener;
       return this;
     }
 
@@ -270,7 +270,7 @@ public class StfalconImageViewer<T> {
      * @return This Builder object to allow calls chaining
      */
     public Builder<T> withDismissListener(OnDismissListener onDismissListener) {
-      this.data.setOnDismissListener(onDismissListener);
+      this.data.onDismissListener = onDismissListener;
       return this;
     }
 

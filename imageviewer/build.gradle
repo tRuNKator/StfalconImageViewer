@@ -3,45 +3,55 @@ apply plugin: 'kotlin-android'
 apply plugin: 'com.novoda.bintray-release'
 
 android {
-    compileSdkVersion 28
+  compileSdkVersion 28
 
-    defaultConfig {
-        minSdkVersion 14
-        targetSdkVersion 28
-        versionCode 1
-        versionName "1.0"
-    }
+  defaultConfig {
+    minSdkVersion 14
+    targetSdkVersion 28
+    versionCode 1
+    versionName "1.0"
+  }
+  compileOptions {
+    sourceCompatibility JavaVersion.VERSION_1_8
+    targetCompatibility JavaVersion.VERSION_1_8
+  }
 }
 
 publish {
-    groupId = 'com.github.trunkator'
-    artifactId = 'stfalcon-imageviewer'
-    publishVersion = '0.1.1'
-    desc = 'A customizable full-screen image viewer with shared image transition support, "pinch to zoom" and "swipe to dismiss" gestures.'
-    licences = ['Apache-2.0']
-    uploadName='StfalconImageViewer'
-    website = 'https://github.com/tRuNKator/StfalconImageViewer'
-    userOrg = 'trunkator'
+  groupId = 'com.github.trunkator'
+  artifactId = 'stfalcon-imageviewer'
+  publishVersion = '0.1.1'
+  desc = 'A customizable full-screen image viewer with shared image transition support, "pinch to zoom" and "swipe to dismiss" gestures.'
+  licences = ['Apache-2.0']
+  uploadName = 'StfalconImageViewer'
+  website = 'https://github.com/tRuNKator/StfalconImageViewer'
+  userOrg = 'trunkator'
 }
 
 dependencies {
-    api 'androidx.appcompat:appcompat:1.0.2'
-    api 'androidx.transition:transition:1.1.0'
-    implementation 'com.github.chrisbanes:PhotoView:2.2.0'
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+  api 'androidx.appcompat:appcompat:1.0.2'
+  api 'androidx.transition:transition:1.1.0'
+  implementation 'com.github.chrisbanes:PhotoView:2.2.0'
+  implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 }
 
 repositories {
-    maven { url "https://jitpack.io" }
+  maven { url "https://jitpack.io" }
 }
 
 // Avoid Kotlin docs error
 tasks.withType(Javadoc) {
-    enabled = false
+  enabled = false
+}
+
+tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).all {
+  kotlinOptions {
+    jvmTarget = "1.8"
+  }
 }
 
 // Remove javadoc related tasks
 task javadoc(type: Javadoc) {
-    source = android.sourceSets.main.java.srcDirs
-    classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
+  source = android.sourceSets.main.java.srcDirs
+  classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
 }
