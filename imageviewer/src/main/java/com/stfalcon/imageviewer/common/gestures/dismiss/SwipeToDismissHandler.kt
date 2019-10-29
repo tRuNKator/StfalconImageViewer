@@ -27,7 +27,7 @@ import com.stfalcon.imageviewer.common.extensions.hitRect
 
 internal class SwipeToDismissHandler(
     private val swipeView: View,
-    private val onDismiss: () -> Unit,
+    private val onDismiss: Runnable,
     private val onSwipeViewMove: (translationY: Float, translationLimit: Int) -> Unit,
     private val shouldAnimateDismiss: () -> Boolean
 ) : View.OnTouchListener {
@@ -84,7 +84,7 @@ internal class SwipeToDismissHandler(
         }
 
         if (animateTo != 0f && !shouldAnimateDismiss()) {
-            onDismiss()
+            onDismiss.run()
         } else {
             animateTranslation(animateTo, ANIMATION_DURATION)
         }
@@ -98,7 +98,7 @@ internal class SwipeToDismissHandler(
         animator.addListener(object : AnimatorListenerAdapter() {
             override fun onAnimationEnd(animation: Animator?) {
                 if (translationTo != 0f) {
-                    onDismiss()
+                    onDismiss.run()
                 }
             }
         })

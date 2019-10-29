@@ -29,8 +29,7 @@ public final class ImageViewerDialog<T> {
         .setView(viewerView)
         .setOnKeyListener((dialog, keyCode, event) -> onDialogKeyEvent(keyCode, event))
         .create();
-    dialog.setOnShowListener(dialog ->
-        viewerView.open$imageviewer_release(builderData.transitionView, animateOpen));
+    dialog.setOnShowListener(dialog -> viewerView.open(builderData.transitionView, animateOpen));
     dialog.setOnDismissListener(dialog -> {
       if (builderData.onDismissListener != null) {
         builderData.onDismissListener.onDismiss();
@@ -44,21 +43,21 @@ public final class ImageViewerDialog<T> {
   }
 
   private void setupViewerView() {
-    viewerView.setZoomingAllowed$imageviewer_release(builderData.isZoomingAllowed);
-    viewerView.setSwipeToDismissAllowed$imageviewer_release(builderData.isSwipeToDismissAllowed);
-    viewerView.setContainerPadding$imageviewer_release(builderData.containerPaddingPixels);
-    viewerView.setImagesMargin$imageviewer_release(builderData.imageMarginPixels);
-    viewerView.setOverlayView$imageviewer_release(builderData.overlayView);
+    viewerView.isZoomingAllowed = builderData.isZoomingAllowed;
+    viewerView.isSwipeToDismissAllowed = builderData.isSwipeToDismissAllowed;
+    viewerView.containerPadding = builderData.containerPaddingPixels;
+    viewerView.setImagesMargin(builderData.imageMarginPixels);
+    viewerView.setOverlayView(builderData.overlayView);
     viewerView.setBackgroundColor(builderData.backgroundColor);
-    viewerView.setImages$imageviewer_release(builderData.images, builderData.startPosition,
+    viewerView.setImages(builderData.images, builderData.startPosition,
         builderData.imageLoader);
-    viewerView.setOnPageChange$imageviewer_release(position -> {
+    viewerView.onPageChange = position -> {
       OnImageChangeListener listener = builderData.imageChangeListener;
       if (listener != null) {
         listener.onImageChange(position);
       }
-    });
-    viewerView.setOnDismiss$imageviewer_release(dialog::dismiss);
+    };
+    viewerView.onDismiss = dialog::dismiss;
   }
 
   public void show(boolean animate) {
@@ -67,29 +66,29 @@ public final class ImageViewerDialog<T> {
   }
 
   public void close() {
-    viewerView.close$imageviewer_release();
+    viewerView.close();
   }
 
   public void updateImages(@NonNull List<T> images) {
-    viewerView.updateImages$imageviewer_release(images);
+    viewerView.updateImages(images);
   }
 
   public int getCurrentPosition() {
-    return viewerView.getCurrentPosition$imageviewer_release();
+    return viewerView.getCurrentPosition();
   }
 
   public void updateTransitionImage(@Nullable ImageView imageView) {
-    viewerView.updateTransitionImage$imageviewer_release(imageView);
+    viewerView.updateTransitionImage(imageView);
   }
 
   boolean onDialogKeyEvent(int keyCode, KeyEvent event) {
     if (keyCode == KeyEvent.KEYCODE_BACK
         && event.getAction() == KeyEvent.ACTION_UP
         && !event.isCanceled()) {
-      if (viewerView.isScaled$imageviewer_release()) {
-        viewerView.resetScale$imageviewer_release();
+      if (viewerView.isScaled()) {
+        viewerView.resetScale();
       } else {
-        viewerView.close$imageviewer_release();
+        viewerView.close();
       }
     }
 
