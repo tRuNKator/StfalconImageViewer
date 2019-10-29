@@ -14,14 +14,14 @@ android {
 }
 
 publish {
-    groupId = 'com.github.stfalcon'
+    groupId = 'com.github.trunkator'
     artifactId = 'stfalcon-imageviewer'
     publishVersion = '0.1.1'
     desc = 'A customizable full-screen image viewer with shared image transition support, "pinch to zoom" and "swipe to dismiss" gestures.'
     licences = ['Apache-2.0']
     uploadName='StfalconImageViewer'
     website = 'https://github.com/tRuNKator/StfalconImageViewer'
-    userOrg = 'tRuNKator'
+    userOrg = 'trunkator'
 }
 
 dependencies {
